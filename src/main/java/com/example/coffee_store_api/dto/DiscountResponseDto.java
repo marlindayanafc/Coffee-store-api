@@ -1,32 +1,30 @@
-package com.example.coffee_store_api.models;
+package com.example.coffee_store_api.dto;
 
 import java.time.LocalDateTime;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.example.coffee_store_api.models.TypeDiscount;
 
-@Document("discounts")
-public class Discount {
-
-    @Id
-    private ObjectId id;
+public class DiscountResponseDto {
+    private String id;
     private String description;
     private double value;
     private TypeDiscount type;
-    private ObjectId productId;
-    private ObjectId statusId;
-    private ObjectId createdBy;
+    private String productId;
+    private String statusId;
+    private String createdBy;
     private LocalDateTime expiredAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
-    public Discount() {
+    public DiscountResponseDto() {
     }
 
-    public Discount(String description, double value, TypeDiscount type, ObjectId productId, ObjectId statusId,
-            ObjectId createdBy, LocalDateTime expiredAt) {
+    public DiscountResponseDto(String id, String description, double value, TypeDiscount type, String productId,
+            String statusId,
+            String createdBy, LocalDateTime expiredAt, LocalDateTime createdAt, LocalDateTime updatedAt,
+            LocalDateTime deletedAt) {
+        this.id = id;
         this.description = description;
         this.value = value;
         this.type = type;
@@ -34,11 +32,12 @@ public class Discount {
         this.statusId = statusId;
         this.createdBy = createdBy;
         this.expiredAt = expiredAt;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -54,15 +53,15 @@ public class Discount {
         return this.type;
     }
 
-    public ObjectId getProductId() {
+    public String getProductId() {
         return this.productId;
     }
 
-    public ObjectId getStatusId() {
+    public String getStatusId() {
         return this.statusId;
     }
 
-    public ObjectId getCreatedBy() {
+    public String getCreatedBy() {
         return this.createdBy;
     }
 
@@ -94,15 +93,15 @@ public class Discount {
         this.type = type;
     }
 
-    public void setProductId(ObjectId productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public void setStatusId(ObjectId statusId) {
+    public void setStatusId(String statusId) {
         this.statusId = statusId;
     }
 
-    public void setCreatedBy(ObjectId createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 

@@ -1,16 +1,12 @@
-package com.example.coffee_store_api.models;
+package com.example.coffee_store_api.dto;
 
 import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("discounts")
-public class Discount {
+import com.example.coffee_store_api.models.TypeDiscount;
 
-    @Id
-    private ObjectId id;
+public class DiscountRequestDto {
     private String description;
     private double value;
     private TypeDiscount type;
@@ -18,14 +14,12 @@ public class Discount {
     private ObjectId statusId;
     private ObjectId createdBy;
     private LocalDateTime expiredAt;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
 
-    public Discount() {
+    public DiscountRequestDto() {
     }
 
-    public Discount(String description, double value, TypeDiscount type, ObjectId productId, ObjectId statusId,
+    public DiscountRequestDto(String description, double value, TypeDiscount type, ObjectId productId,
+            ObjectId statusId,
             ObjectId createdBy, LocalDateTime expiredAt) {
         this.description = description;
         this.value = value;
@@ -34,12 +28,6 @@ public class Discount {
         this.statusId = statusId;
         this.createdBy = createdBy;
         this.expiredAt = expiredAt;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    public ObjectId getId() {
-        return this.id;
     }
 
     public String getDescription() {
@@ -70,18 +58,6 @@ public class Discount {
         return this.expiredAt;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return this.updatedAt;
-    }
-
-    public LocalDateTime getDeletedAt() {
-        return this.deletedAt;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -110,11 +86,4 @@ public class Discount {
         this.expiredAt = expiredAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
-    }
 }
