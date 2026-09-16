@@ -8,9 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface DiscountRepository extends MongoRepository<Discount, ObjectId> {
     Page<Discount> findByDeletedAtIsNullAndDescriptionContainingIgnoreCase(String search, Pageable pageable);
 
     Optional<Discount> findByIdAndDeletedAtIsNull(ObjectId id);
+
+    List<Discount> findByProductIdInAndDeletedAtIsNullAndExpiredAtAfter(List<ObjectId> productIds, LocalDateTime now);
 }

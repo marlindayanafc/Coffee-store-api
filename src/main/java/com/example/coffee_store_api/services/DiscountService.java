@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.coffee_store_api.dto.DiscountRequestDto;
 import com.example.coffee_store_api.dto.DiscountResponseDto;
-import com.example.coffee_store_api.dto.ProductResponseDto;
 import com.example.coffee_store_api.exceptions.InvalidDiscountDateException;
 import com.example.coffee_store_api.models.Discount;
 import com.example.coffee_store_api.models.Status;

@@ -1,37 +1,37 @@
-package com.example.coffee_store_api.models;
+package com.example.coffee_store_api.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.example.coffee_store_api.models.InvoiceDetail;
 
-@Document("invoices")
-public class Invoice {
+public class InvoiceResponseDto {
 
-    @Id
-    private ObjectId id;
-    private ObjectId userId;
+    private String id;
+    private String userId;
     private String customerInfo;
-    private List<InvoiceDetail> details;
-    private ObjectId statusId;
+    private List<InvoiceDetailResponseDto> details;
+    private String statusId;
     private double total;
     private double subtotal;
     private double discountTotal;
-    private ObjectId createdBy;
-    private ObjectId cancelledBy;
+    private String createdBy;
+    private String cancelledBy;
     private String cancelReason;
     private LocalDateTime cancelledAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
-    public Invoice() {
+    public InvoiceResponseDto() {
     }
 
-    public Invoice(ObjectId userId, String customerInfo, List<InvoiceDetail> details, ObjectId statusId,
-            double total, double subtotal, double discountTotal, ObjectId createdBy) {
+    public InvoiceResponseDto(String id, String userId, String customerInfo, List<InvoiceDetailResponseDto> details,
+            String statusId,
+            double total, double subtotal, double discountTotal, String createdBy, String cancelledBy,
+            String cancelReason, LocalDateTime cancelledAt, LocalDateTime createdAt, LocalDateTime updatedAt,
+            LocalDateTime deletedAt) {
+        this.id = id;
         this.userId = userId;
         this.customerInfo = customerInfo;
         this.details = details;
@@ -40,15 +40,19 @@ public class Invoice {
         this.subtotal = subtotal;
         this.discountTotal = discountTotal;
         this.createdBy = createdBy;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.cancelledBy = cancelledBy;
+        this.cancelReason = cancelReason;
+        this.cancelledAt = cancelledAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return this.id;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
@@ -56,11 +60,11 @@ public class Invoice {
         return this.customerInfo;
     }
 
-    public List<InvoiceDetail> getDetails() {
+    public List<InvoiceDetailResponseDto> getDetails() {
         return this.details;
     }
 
-    public ObjectId getStatusId() {
+    public String getStatusId() {
         return this.statusId;
     }
 
@@ -76,11 +80,11 @@ public class Invoice {
         return this.discountTotal;
     }
 
-    public ObjectId getCreatedBy() {
+    public String getCreatedBy() {
         return this.createdBy;
     }
 
-    public ObjectId getCancelledBy() {
+    public String getCancelledBy() {
         return this.cancelledBy;
     }
 
@@ -104,7 +108,7 @@ public class Invoice {
         return this.deletedAt;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -112,11 +116,11 @@ public class Invoice {
         this.customerInfo = customerInfo;
     }
 
-    public void setDetails(List<InvoiceDetail> details) {
+    public void setDetails(List<InvoiceDetailResponseDto> details) {
         this.details = details;
     }
 
-    public void setStatusId(ObjectId statusId) {
+    public void setStatusId(String statusId) {
         this.statusId = statusId;
     }
 
@@ -132,11 +136,11 @@ public class Invoice {
         this.discountTotal = discountTotal;
     }
 
-    public void setCreatedBy(ObjectId createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public void setCancelledBy(ObjectId cancelledBy) {
+    public void setCancelledBy(String cancelledBy) {
         this.cancelledBy = cancelledBy;
     }
 
@@ -155,4 +159,5 @@ public class Invoice {
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
+
 }

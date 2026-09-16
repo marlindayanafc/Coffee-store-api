@@ -1,32 +1,31 @@
-package com.example.coffee_store_api.models;
+package com.example.coffee_store_api.dto;
 
 import java.time.LocalDateTime;
 
-import org.bson.types.ObjectId;
+public class InvoiceDetailResponseDto {
 
-public class InvoiceDetail {
-
-    private ObjectId productId;
+    private String productId;
     private int quantity;
     private double unitPrice;
     private double totalPrice;
-    private ObjectId discountId;
+    private String discountId;
     private String productName;
     private String productDescription;
     private String productAdditionalInfo;
     private String productImage;
-    private ObjectId productCategoryId;
+    private String productCategoryId;
     private LocalDateTime productCreatedAt;
     private LocalDateTime productUpdatedAt;
-    private ObjectId productCreatedBy;
+    private String productCreatedBy;
 
-    public InvoiceDetail() {
+    public InvoiceDetailResponseDto() {
     }
 
-    public InvoiceDetail(ObjectId productId, int quantity, double unitPrice, double totalPrice, ObjectId discountId,
+    public InvoiceDetailResponseDto(String productId, int quantity, double unitPrice, double totalPrice,
+            String discountId,
             String productName, String productDescription, String productAdditionalInfo, String productImage,
-            ObjectId productCategoryId, LocalDateTime productCreatedAt, LocalDateTime productUpdatedAt,
-            ObjectId productCreatedBy) {
+            String productCategoryId, LocalDateTime productCreatedAt, LocalDateTime productUpdatedAt,
+            String productCreatedBy) {
         this.productId = productId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
@@ -42,7 +41,7 @@ public class InvoiceDetail {
         this.productCreatedBy = productCreatedBy;
     }
 
-    public ObjectId getProductId() {
+    public String getProductId() {
         return this.productId;
     }
 
@@ -58,7 +57,7 @@ public class InvoiceDetail {
         return this.totalPrice;
     }
 
-    public ObjectId getDiscountId() {
+    public String getDiscountId() {
         return this.discountId;
     }
 
@@ -78,7 +77,7 @@ public class InvoiceDetail {
         return this.productImage;
     }
 
-    public ObjectId getProductCategoryId() {
+    public String getProductCategoryId() {
         return this.productCategoryId;
     }
 
@@ -90,11 +89,11 @@ public class InvoiceDetail {
         return this.productUpdatedAt;
     }
 
-    public ObjectId getProductCreatedBy() {
+    public String getProductCreatedBy() {
         return this.productCreatedBy;
     }
 
-    public void setProductId(ObjectId productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -110,7 +109,7 @@ public class InvoiceDetail {
         this.totalPrice = totalPrice;
     }
 
-    public void setDiscountId(ObjectId discountId) {
+    public void setDiscountId(String discountId) {
         this.discountId = discountId;
     }
 
@@ -130,7 +129,7 @@ public class InvoiceDetail {
         this.productImage = productImage;
     }
 
-    public void setProductCategoryId(ObjectId productCategoryId) {
+    public void setProductCategoryId(String productCategoryId) {
         this.productCategoryId = productCategoryId;
     }
 
@@ -142,7 +141,8 @@ public class InvoiceDetail {
         this.productUpdatedAt = productUpdatedAt;
     }
 
-    public void setProductCreatedBy(ObjectId productCreatedBy) {
+    public void setProductCreatedBy(String productCreatedBy) {
         this.productCreatedBy = productCreatedBy;
     }
+
 }

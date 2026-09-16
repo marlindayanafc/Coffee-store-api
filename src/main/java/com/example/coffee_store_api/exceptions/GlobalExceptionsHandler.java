@@ -43,4 +43,19 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<String> handleValidationUserExist(UserAlreadyExistExceptionHandler ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(InvalidDiscountDateException.class)
+    public ResponseEntity<String> handleInvalidDiscountDate(InvalidDiscountDateException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCustomerDataException.class)
+    public ResponseEntity<String> handleInvalidCustomerData(InvalidCustomerDataException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PriceMismatchException.class)
+    public ResponseEntity<String> handlePriceMismatch(PriceMismatchException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 }
