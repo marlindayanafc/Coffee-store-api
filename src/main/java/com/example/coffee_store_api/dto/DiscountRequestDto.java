@@ -6,13 +6,22 @@ import org.bson.types.ObjectId;
 
 import com.example.coffee_store_api.models.TypeDiscount;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class DiscountRequestDto {
+    @NotBlank
     private String description;
+    @Positive
     private double value;
+    @NotNull
     private TypeDiscount type;
+    @NotNull
     private ObjectId productId;
     private ObjectId statusId;
     private ObjectId createdBy;
+    @NotNull
     private LocalDateTime expiredAt;
 
     public DiscountRequestDto() {

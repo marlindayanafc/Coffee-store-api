@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("products")
@@ -33,14 +34,15 @@ public class ProductController {
 
     @PreAuthorize("hasRole('admin')")
     @PostMapping()
-    public ProductResponseDto saveProduct(@RequestBody ProductRequestDto productRequest,
+    public ProductResponseDto saveProduct(@Valid @RequestBody ProductRequestDto productRequest,
             @AuthenticationPrincipal String userId) {
         return productService.createProduct(productRequest, new ObjectId(userId));
     }
 
     @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
-    public ProductResponseDto updateProduct(@PathVariable("id") String id, @RequestBody ProductRequestDto productRequest) {
+    public ProductResponseDto updateProduct(@PathVariable("id") String id,
+            @Valid @RequestBody ProductRequestDto productRequest) {
         return productService.updateProduct(productRequest, new ObjectId(id));
     }
 

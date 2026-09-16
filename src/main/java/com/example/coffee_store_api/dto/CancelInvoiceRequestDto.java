@@ -1,6 +1,9 @@
 package com.example.coffee_store_api.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CancelInvoiceRequestDto {
+    @NotBlank
     private String cancelReason;
 
     public CancelInvoiceRequestDto() {

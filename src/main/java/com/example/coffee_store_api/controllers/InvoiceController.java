@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("invoices")
@@ -32,7 +33,7 @@ public class InvoiceController {
 
     @PreAuthorize("hasAnyRole('admin', 'collab')")
     @PostMapping
-    public InvoiceResponseDto createInvoice(@RequestBody InvoiceRequestDto invoiceRequest,
+    public InvoiceResponseDto createInvoice(@Valid @RequestBody InvoiceRequestDto invoiceRequest,
             @AuthenticationPrincipal String userId) {
 
         return invoiceService.createInvoice(invoiceRequest, new ObjectId(userId));
@@ -52,7 +53,7 @@ public class InvoiceController {
     @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
     public InvoiceResponseDto cancelInvoice(@PathVariable("id") String id,
-            @RequestBody CancelInvoiceRequestDto request,
+            @Valid @RequestBody CancelInvoiceRequestDto request,
             @AuthenticationPrincipal String userId) {
 
         return invoiceService.cancelInvoice(new ObjectId(id), request.getCancelReason(), new ObjectId(userId));

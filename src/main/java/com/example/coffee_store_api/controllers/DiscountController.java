@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/discounts")
@@ -31,7 +32,7 @@ public class DiscountController {
 
     @PreAuthorize("hasRole('admin')")
     @PostMapping
-    public DiscountResponseDto createDiscount(@RequestBody DiscountRequestDto discountRequestDto,
+    public DiscountResponseDto createDiscount(@Valid @RequestBody DiscountRequestDto discountRequestDto,
             @AuthenticationPrincipal String userId) {
         return discountService.createDiscount(discountRequestDto, new ObjectId(userId));
     }
@@ -49,7 +50,8 @@ public class DiscountController {
 
     @PreAuthorize("hasRole('admin')")
     @PutMapping("/{id}")
-    public DiscountResponseDto updateDiscount(@PathVariable("id") String id, @RequestBody DiscountRequestDto request) {
+    public DiscountResponseDto updateDiscount(@PathVariable("id") String id,
+            @Valid @RequestBody DiscountRequestDto request) {
         return discountService.updateDiscount(new ObjectId(id), request);
     }
 

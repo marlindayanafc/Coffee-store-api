@@ -4,10 +4,17 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class InvoiceRequestDto {
     private ObjectId userId;
     private String customerInfo;
+    @NotEmpty
+    @Valid
     private List<InvoiceDetailDto> details;
+    @PositiveOrZero
     private double total;
     private double subtotal;
     private double discountTotal;

@@ -2,8 +2,13 @@ package com.example.coffee_store_api.dto;
 
 import org.bson.types.ObjectId;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class InvoiceDetailDto {
+    @NotNull
     private ObjectId productId;
+    @Positive
     private int quantity;
 
     public InvoiceDetailDto() {

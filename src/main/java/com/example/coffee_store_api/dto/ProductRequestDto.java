@@ -2,12 +2,21 @@ package com.example.coffee_store_api.dto;
 
 import org.bson.types.ObjectId;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class ProductRequestDto {
+    @NotBlank
     private String name;
+    @Positive
     private double price;
+    @PositiveOrZero
     private double stock;
     private String description;
     private String additionalInfo;
+    @NotNull
     private ObjectId productCategoryId;
     private String image;
 

@@ -10,6 +10,7 @@ import com.example.coffee_store_api.dto.UserResponseDto;
 import com.example.coffee_store_api.services.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,12 +23,12 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public UserResponseDto signUp(@RequestBody UserRequestDto userRequest) {
+    public UserResponseDto signUp(@Valid @RequestBody UserRequestDto userRequest) {
         return authService.signUp(userRequest);
     }
 
     @PostMapping("/signin")
-    public LoginResponseDto signIn(@RequestBody LoginRequestDto loginRequest) {
+    public LoginResponseDto signIn(@Valid @RequestBody LoginRequestDto loginRequest) {
         return authService.signIn(loginRequest);
     }
 
