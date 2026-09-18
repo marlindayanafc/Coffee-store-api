@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -91,36 +90,36 @@ public class InvoiceService {
                                         .findFirst()
                                         .orElseThrow();
 
-                        Optional<Discount> discount = discounts.stream()
+                        List<Discount> productDiscounts = discounts.stream()
                                         .filter(d -> d.getProductId().equals(item.getProductId()))
-                                        .findFirst();
+                                        .collect(Collectors.toList());
 
                         double lineSubtotal = infoProduct.getPrice() * item.getQuantity();
                         subtotal += lineSubtotal;
 
-                        ObjectId discountId = null;
+                        List<ObjectId> discountIds = new ArrayList<>();
                         double lineDiscount = 0;
 
-                        if (!discount.isEmpty()) {
-                                double discountValue = discount.get().getValue();
-                                discountId = discount.get().getId();
-                                switch (discount.get().getType()) {
+                        for (Discount discount : productDiscounts) {
+                                double discountValue = discount.getValue();
+                                discountIds.add(discount.getId());
+                                switch (discount.getType()) {
                                         case FIXED:
-                                                lineDiscount = discountValue * item.getQuantity();
+                                                lineDiscount += discountValue * item.getQuantity();
                                                 break;
                                         case PERCENTAGE:
-                                                lineDiscount = (infoProduct.getPrice() * discountValue / 100)
+                                                lineDiscount += (infoProduct.getPrice() * discountValue / 100)
                                                                 * item.getQuantity();
                                                 break;
 
                                         default:
                                                 break;
                                 }
-                                totalDiscount += lineDiscount;
                         }
+                        totalDiscount += lineDiscount;
 
                         details.add(new InvoiceDetail(item.getProductId(), item.getQuantity(), infoProduct.getPrice(),
-                                        lineSubtotal - lineDiscount, discountId, infoProduct.getName(),
+                                        lineSubtotal - lineDiscount, discountIds, infoProduct.getName(),
                                         infoProduct.getDescription(), infoProduct.getAdditionalInfo(),
                                         infoProduct.getImage(),
                                         infoProduct.getProductCategoryId(), infoProduct.getCreatedAt(),
@@ -186,8 +185,10 @@ public class InvoiceService {
                                 .map(item -> new InvoiceDetailResponseDto(item.getProductId().toHexString(),
                                                 item.getQuantity(),
                                                 item.getUnitPrice(), item.getTotalPrice(),
-                                                item.getDiscountId() != null ? item.getDiscountId().toHexString()
-                                                                : null,
+                                                item.getDiscountIds() == null ? List.of()
+                                                                : item.getDiscountIds().stream()
+                                                                                .map(ObjectId::toHexString)
+                                                                                .collect(Collectors.toList()),
                                                 item.getProductName(),
                                                 item.getProductDescription(), item.getProductAdditionalInfo(),
                                                 item.getProductImage(),

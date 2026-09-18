@@ -1,6 +1,7 @@
 package com.example.coffee_store_api.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class InvoiceDetailResponseDto {
 
@@ -8,7 +9,7 @@ public class InvoiceDetailResponseDto {
     private int quantity;
     private double unitPrice;
     private double totalPrice;
-    private String discountId;
+    private List<String> discountIds;
     private String productName;
     private String productDescription;
     private String productAdditionalInfo;
@@ -22,7 +23,7 @@ public class InvoiceDetailResponseDto {
     }
 
     public InvoiceDetailResponseDto(String productId, int quantity, double unitPrice, double totalPrice,
-            String discountId,
+            List<String> discountIds,
             String productName, String productDescription, String productAdditionalInfo, String productImage,
             String productCategoryId, LocalDateTime productCreatedAt, LocalDateTime productUpdatedAt,
             String productCreatedBy) {
@@ -30,7 +31,7 @@ public class InvoiceDetailResponseDto {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
-        this.discountId = discountId;
+        this.discountIds = discountIds;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productAdditionalInfo = productAdditionalInfo;
@@ -57,8 +58,8 @@ public class InvoiceDetailResponseDto {
         return this.totalPrice;
     }
 
-    public String getDiscountId() {
-        return this.discountId;
+    public List<String> getDiscountIds() {
+        return this.discountIds;
     }
 
     public String getProductName() {
@@ -109,8 +110,8 @@ public class InvoiceDetailResponseDto {
         this.totalPrice = totalPrice;
     }
 
-    public void setDiscountId(String discountId) {
-        this.discountId = discountId;
+    public void setDiscountIds(List<String> discountIds) {
+        this.discountIds = discountIds;
     }
 
     public void setProductName(String productName) {

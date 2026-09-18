@@ -1,6 +1,7 @@
 package com.example.coffee_store_api.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 
@@ -10,7 +11,7 @@ public class InvoiceDetail {
     private int quantity;
     private double unitPrice;
     private double totalPrice;
-    private ObjectId discountId;
+    private List<ObjectId> discountIds;
     private String productName;
     private String productDescription;
     private String productAdditionalInfo;
@@ -23,7 +24,8 @@ public class InvoiceDetail {
     public InvoiceDetail() {
     }
 
-    public InvoiceDetail(ObjectId productId, int quantity, double unitPrice, double totalPrice, ObjectId discountId,
+    public InvoiceDetail(ObjectId productId, int quantity, double unitPrice, double totalPrice,
+            List<ObjectId> discountIds,
             String productName, String productDescription, String productAdditionalInfo, String productImage,
             ObjectId productCategoryId, LocalDateTime productCreatedAt, LocalDateTime productUpdatedAt,
             ObjectId productCreatedBy) {
@@ -31,7 +33,7 @@ public class InvoiceDetail {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
-        this.discountId = discountId;
+        this.discountIds = discountIds;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productAdditionalInfo = productAdditionalInfo;
@@ -58,8 +60,8 @@ public class InvoiceDetail {
         return this.totalPrice;
     }
 
-    public ObjectId getDiscountId() {
-        return this.discountId;
+    public List<ObjectId> getDiscountIds() {
+        return this.discountIds;
     }
 
     public String getProductName() {
@@ -110,8 +112,8 @@ public class InvoiceDetail {
         this.totalPrice = totalPrice;
     }
 
-    public void setDiscountId(ObjectId discountId) {
-        this.discountId = discountId;
+    public void setDiscountIds(List<ObjectId> discountIds) {
+        this.discountIds = discountIds;
     }
 
     public void setProductName(String productName) {

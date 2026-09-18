@@ -156,6 +156,37 @@ public class InvoiceServiceTest {
     }
 
     @Test
+    public void shouldAccumulateMultipleDiscountsOnSameProduct() {
+        ObjectId productId = new ObjectId();
+        Product product = buildProduct(productId, 25000, 50);
+
+        Discount fixedDiscount = new Discount("Descuento fijo", 2000, TypeDiscount.FIXED, productId,
+                new ObjectId(), new ObjectId(), LocalDateTime.now().plusDays(5));
+        ReflectionTestUtils.setField(fixedDiscount, "id", new ObjectId());
+
+        Discount percentageDiscount = new Discount("Descuento porcentaje", 10, TypeDiscount.PERCENTAGE, productId,
+                new ObjectId(), new ObjectId(), LocalDateTime.now().plusDays(5));
+        ReflectionTestUtils.setField(percentageDiscount, "id", new ObjectId());
+
+        InvoiceRequestDto request = new InvoiceRequestDto(null, "Cliente de prueba",
+                List.of(new InvoiceDetailDto(productId, 2)), 41000, 0, 0);
+
+        when(productRepository.findAllById(any())).thenReturn(List.of(product));
+        when(discountRepository.findByProductIdInAndDeletedAtIsNullAndExpiredAtAfter(any(), any()))
+                .thenReturn(List.of(fixedDiscount, percentageDiscount));
+        mockActiveStatus();
+        when(productRepository.save(any())).thenReturn(product);
+        mockInvoiceSave();
+
+        InvoiceResponseDto response = invoiceService.createInvoice(request, new ObjectId());
+
+        assertEquals(50000, response.getSubtotal());
+        assertEquals(9000, response.getDiscountTotal());
+        assertEquals(41000, response.getTotal());
+        assertEquals(2, response.getDetails().get(0).getDiscountIds().size());
+    }
+
+    @Test
     public void shouldThrowWhenUserIdAndCustomerInfoBothProvided() {
         InvoiceRequestDto request = new InvoiceRequestDto(new ObjectId(), "Cliente de prueba",
                 List.of(new InvoiceDetailDto(new ObjectId(), 1)), 25000, 0, 0);
